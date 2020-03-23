@@ -728,8 +728,13 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                     DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
                     s.receive(messageIn);
                     String response = new String(messageIn.getData());
-                    char[] res = response.toCharArray();
-                    int ind = Integer.parseInt(res[0]+"");
+                    String[] res = response.split(",");
+                    int ind;
+                    if(res[0].charAt(0) == '-'){
+                        ind = -1* Integer.parseInt(res[0].charAt(1) + "");
+                    }else{
+                        ind = Integer.parseInt(res[0].charAt(0)+"");
+                    }
                     if(ind == 0){
                         System.out.println(response.split(",")[1]);
                         String nname = response.split(",")[1];
