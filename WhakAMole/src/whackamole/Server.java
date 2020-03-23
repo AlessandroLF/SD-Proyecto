@@ -158,7 +158,7 @@ public class Server{
                                 if(j.getPoints() >= 10)
                                     myMessage = (-1 * (jugadores.indexOf(j) + 1)) + "";
                                 else
-                                    myMessage = "0" + jugadores.indexOf(j);
+                                    myMessage = "0," +j.getName() + "," + jugadores.indexOf(j);
                                 byte [] m = myMessage.getBytes();
                                 DatagramPacket messageOut = new DatagramPacket(m, m.length, group, 6789);
                                 s.send(messageOut);
@@ -196,7 +196,7 @@ public class Server{
                 while(true){
                     Random random = new Random();
                     String myMessage = (random.nextInt(6) + 1) + "";
-                    //System.out.println(myMessage);
+                    System.out.println(myMessage);
                     byte [] m = myMessage.getBytes();
                     DatagramPacket messageOut = new DatagramPacket(m, m.length, group, 6789);
                     s.send(messageOut);

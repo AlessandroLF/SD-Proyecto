@@ -16,7 +16,6 @@ public class Starter {
             Game tablero = new Game();
             tablero.setVisible(true);
         });
-        
         new Server().main();
     }
     

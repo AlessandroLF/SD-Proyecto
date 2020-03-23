@@ -509,10 +509,12 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         if(timer == 11){
             ImageIcon i = new ImageIcon(getClass().getResource("/resources/lightsaberSwinged.png"));
             lsLabel.setIcon(i);
-            try {
-                out.writeUTF(name);
-            } catch (IOException ex) {
-                statusLabel.setText("Connection Error");
+            if(mole[0]){
+                try {
+                    out.writeUTF(name);
+                } catch (IOException ex) {
+                    statusLabel.setText("Connection Error");
+                }
             }
         }
     }//GEN-LAST:event_jButton1MouseDragged
@@ -527,11 +529,12 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         if(timer == 11){
             ImageIcon i = new ImageIcon(getClass().getResource("/resources/lightsaberSwinged.png"));
             lsLabel.setIcon(i);
-            try {
-                out.writeUTF("Hitted 2");
-                statusLabel.setText("Killed 2");
-            } catch (IOException ex) {
-                statusLabel.setText("Connection Error");
+            if(mole[1]){
+                try {
+                    out.writeUTF(name);
+                } catch (IOException ex) {
+                    statusLabel.setText("Connection Error");
+                }
             }
         }
     }//GEN-LAST:event_jButton2MouseDragged
@@ -546,11 +549,12 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         if(timer == 11){
             ImageIcon i = new ImageIcon(getClass().getResource("/resources/lightsaberSwinged.png"));
             lsLabel.setIcon(i);
-            try {
-                out.writeUTF("Hitted 3");
-                statusLabel.setText("Killed 3");
-            } catch (IOException ex) {
-                statusLabel.setText("Connection Error");
+            if(mole[2]){
+                try {
+                    out.writeUTF(name);
+                } catch (IOException ex) {
+                    statusLabel.setText("Connection Error");
+                }
             }
         }
     }//GEN-LAST:event_jButton3MouseDragged
@@ -565,11 +569,12 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         if(timer == 11){
             ImageIcon i = new ImageIcon(getClass().getResource("/resources/lightsaberSwinged.png"));
             lsLabel.setIcon(i);
-            try {
-                out.writeUTF("Hitted 5");
-                statusLabel.setText("Killed 5");
-            } catch (IOException ex) {
-                statusLabel.setText("Connection Error");
+            if(mole[4]){
+                try {
+                    out.writeUTF(name);
+                } catch (IOException ex) {
+                    statusLabel.setText("Connection Error");
+                }
             }
         }
     }//GEN-LAST:event_jButton5MouseDragged
@@ -584,11 +589,12 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         if(timer == 11){
             ImageIcon i = new ImageIcon(getClass().getResource("/resources/lightsaberSwinged.png"));
             lsLabel.setIcon(i);
-            try {
-                out.writeUTF("Hitted 6");
-                statusLabel.setText("Killed 6");
-            } catch (IOException ex) {
-                statusLabel.setText("Connection Error");
+            if(mole[5]){
+                try {
+                    out.writeUTF(name);
+                } catch (IOException ex) {
+                    statusLabel.setText("Connection Error");
+                }
             }
         }
     }//GEN-LAST:event_jButton6MouseDragged
@@ -603,11 +609,12 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         if(timer == 11){
             ImageIcon i = new ImageIcon(getClass().getResource("/resources/lightsaberSwinged.png"));
             lsLabel.setIcon(i);
-            try {
-                out.writeUTF("Hitted 4");
-                statusLabel.setText("Killed 4");
-            } catch (IOException ex) {
-                statusLabel.setText("Connection Error");
+            if(mole[3]){
+                try {
+                    out.writeUTF(name);
+                } catch (IOException ex) {
+                    statusLabel.setText("Connection Error");
+                }
             }
         }
     }//GEN-LAST:event_jButton4MouseDragged
@@ -620,6 +627,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
+            jButton7.setEnabled(false);
             Socket registrySocket = new Socket("localhost", 6790);
             ObjectOutputStream sol = new ObjectOutputStream(registrySocket.getOutputStream());
             Jugador j = new Jugador(jTextField1.getText());
@@ -680,14 +688,30 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         });
     }
     
+    public class Erease extends Thread{
+        int ind;
+        
+        public Erease(int i){
+            ind = i-1;
+        }
+        
+        @Override
+        public void run(){
+            try {
+                Thread.sleep(1500);
+            bts[ind].setIcon(null);
+            mole[ind] = false;
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     private void molePop(int where){
-        System.out.println(where);
-        mole[where] = true;
-        bts[where].setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidT.png")));
-        java.awt.EventQueue.invokeLater(() -> {
-            count(2);
-            bts[where].setIcon(null);
-        });
+        System.out.println(where-1);
+        mole[where-1] = true;
+        bts[where-1].setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidT.png")));
+        new Erease(where).start();
     }
     
     private class MulticastListener extends Thread{
@@ -699,19 +723,36 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 InetAddress group = InetAddress.getByName("228.5.6.7"); // destination multicast group 
                 s = new MulticastSocket(gamePort);
                 s.joinGroup(group); 
-                byte[] buffer = new byte[1000];
                 while(true) {
+                    byte[] buffer = new byte[1000];
                     DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
                     s.receive(messageIn);
-                    char[] res = new String(messageIn.getData()).toCharArray();
-                    if(res[0] == 0){
-                        jugadores.get(res[1]).hit();
+                    String response = new String(messageIn.getData());
+                    char[] res = response.toCharArray();
+                    int ind = Integer.parseInt(res[0]+"");
+                    if(ind == 0){
+                        System.out.println(response.split(",")[1]);
+                        String nname = response.split(",")[1];
+                        int ind2 = Integer.parseInt(response.split(",")[2].charAt(0)+"");
+                        System.out.println(ind2);
+                        boolean esta = false;
+                        for(Jugador ji : jugadores){
+                            if(ji.getName().equals(nname)){
+                                esta = true;
+                            }
+                        }
+                        if(!esta){
+                            Jugador j = new Jugador(nname);
+                            jugadores.add(j);
+                        }
+                        jugadores.get(ind2).hit();
+                        updateScores();
                     }
-                    if(res[0] < 0){
-                        statusLabel.setText("Ganó " + jugadores.get((res[0] * -1) - 1) + "!");
+                    if(ind < 0){
+                        statusLabel.setText("Ganó " + jugadores.get((ind * -1) - 1) + "!");
                     }
-                    if(res[0] > 0){
-                        molePop(res[0]);
+                    if(ind > 0){
+                        molePop(ind);
                     }
                 }		
             }
@@ -727,7 +768,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         }	
     }
     
-    public void count(int s){
+    public synchronized void count(int s){
         new Count(s).start();
     }
     
