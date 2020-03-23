@@ -50,8 +50,21 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
     public int gamePort;
     public int hitPort;
     public String IP;
-    JButton[] bts;
     Boolean[] mole;
+    Boolean[] falses;
+    private ImageIcon spot1;
+    private ImageIcon spot2;
+    private ImageIcon spot3;
+    private ImageIcon spot4;
+    private ImageIcon spot5;
+    private ImageIcon spot6;
+    private ImageIcon spoted1;
+    private ImageIcon spoted2;
+    private ImageIcon spoted3;
+    private ImageIcon spoted4;
+    private ImageIcon spoted5;
+    private ImageIcon spoted6;
+    Socket hitSocket;
     
     private void init() throws IOException, InterruptedException{
         cursores();
@@ -59,25 +72,40 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         setLocationRelativeTo(this);
         addMouseMotionListener(this);
         addMouseListener(this);
-        jButton1.setIcon(null);
-        jButton2.setIcon(null);
-        jButton3.setIcon(null);
-        jButton4.setIcon(null);
-        jButton5.setIcon(null);
-        jButton6.setIcon(null);
-        bts = new JButton[6];
-        bts[0] = jButton1;
-        bts[1] = jButton2;
-        bts[2] = jButton3;
-        bts[3] = jButton4;
-        bts[4] = jButton5;
-        bts[5] = jButton6;
-        mole = new Boolean[6];
-        for(Boolean b : mole)
+        icons();
+        setSpots();
+        falses = new Boolean[6];
+        for(Boolean b : falses)
             b = false;
+        mole = falses.clone();
+        jLabel2.setIcon(new ImageIcon(getClass().getResource("/resources/battlefield.png")));
     }
     
+    public void icons(){
+            spot1 = new ImageIcon(getClass().getResource("/resources/1spot.png"));
+//            spot2;
+//            spot3;
+//            spot4;
+//            spot5;
+//            spot6;
+            spoted1 = new ImageIcon(getClass().getResource("/resources/1spoted.png"));
+//            spoted2;
+//            spoted3;
+//            spoted4;
+//            spoted5;
+//            spoted6;
+            
+    }
     
+    public void setSpots(){
+        ImageIcon i = new ImageIcon(getClass().getResource("/resources/noDroid.png"));
+        jButton1.setIcon(spot1);
+        jButton2.setIcon(i);
+        jButton3.setIcon(i);
+        jButton4.setIcon(i);
+        jButton5.setIcon(i);
+        jButton6.setIcon(i);
+    }
     
     private void initListeners(){
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -186,6 +214,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Whack-a-Mole");
@@ -193,7 +222,9 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         setBounds(new java.awt.Rectangle(400, 500, 400, 400));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setName("frame"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(784, 704));
         setResizable(false);
+        setSize(new java.awt.Dimension(784, 637));
 
         jLabel1.setText("Nombre:");
 
@@ -221,14 +252,15 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 .addComponent(player4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton7)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,12 +281,19 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 .addContainerGap())
         );
 
+        jLayeredPane1.setMinimumSize(new java.awt.Dimension(784, 542));
+        jLayeredPane1.setPreferredSize(new java.awt.Dimension(784, 610));
+        jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         lsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lsLabel.setIconTextGap(0);
         lsLabel.setMaximumSize(new java.awt.Dimension(200, 200));
         lsLabel.setMinimumSize(new java.awt.Dimension(100, 100));
+        jLayeredPane1.setLayer(lsLabel, javax.swing.JLayeredPane.DRAG_LAYER);
+        jLayeredPane1.add(lsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 171, 174));
+        lsLabel.getAccessibleContext().setAccessibleParent(jLayeredPane1);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidT.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/1spot.png"))); // NOI18N
         jButton1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jButton1MouseDragged(evt);
@@ -273,6 +312,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton1ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 89, 180));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidTR.png"))); // NOI18N
         jButton2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -288,6 +328,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton2ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 89, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidT.png"))); // NOI18N
         jButton3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -303,6 +344,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton3ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 130, 89, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidTR.png"))); // NOI18N
         jButton4.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -318,6 +360,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton4ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 89, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidT.png"))); // NOI18N
         jButton5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -333,6 +376,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton5ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 89, -1));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidTR.png"))); // NOI18N
         jButton6.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -348,77 +392,10 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton6ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 89, -1));
 
-        jLayeredPane1.setLayer(lsLabel, javax.swing.JLayeredPane.DRAG_LAYER);
-        jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)))
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(lsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 44, Short.MAX_VALUE))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(77, 77, 77))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(261, 261, 261)
-                .addComponent(lsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(60, 60, 60)
-                .addComponent(jButton5)
-                .addGap(88, 88, 88))
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jButton2))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jButton3)))
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jButton6)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addGap(55, 55, 55))))
-        );
-
-        lsLabel.getAccessibleContext().setAccessibleParent(jLayeredPane1);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battlefield.png"))); // NOI18N
+        jLayeredPane1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -432,7 +409,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE))
         );
 
         pack();
@@ -515,6 +492,8 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 } catch (IOException ex) {
                     statusLabel.setText("Connection Error");
                 }
+            }else{
+                jButton1.setIcon(spot1);
             }
         }
     }//GEN-LAST:event_jButton1MouseDragged
@@ -535,6 +514,8 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 } catch (IOException ex) {
                     statusLabel.setText("Connection Error");
                 }
+            }else{
+                jButton2.setIcon(spot1);
             }
         }
     }//GEN-LAST:event_jButton2MouseDragged
@@ -555,6 +536,8 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 } catch (IOException ex) {
                     statusLabel.setText("Connection Error");
                 }
+            }else{
+                jButton3.setIcon(spot1);
             }
         }
     }//GEN-LAST:event_jButton3MouseDragged
@@ -575,6 +558,8 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 } catch (IOException ex) {
                     statusLabel.setText("Connection Error");
                 }
+            }else{
+                jButton5.setIcon(spot1);
             }
         }
     }//GEN-LAST:event_jButton5MouseDragged
@@ -595,6 +580,8 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 } catch (IOException ex) {
                     statusLabel.setText("Connection Error");
                 }
+            }else{
+                jButton6.setIcon(spot1);
             }
         }
     }//GEN-LAST:event_jButton6MouseDragged
@@ -615,6 +602,8 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 } catch (IOException ex) {
                     statusLabel.setText("Connection Error");
                 }
+            }else{
+                jButton1.setIcon(spot4);
             }
         }
     }//GEN-LAST:event_jButton4MouseDragged
@@ -628,16 +617,15 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
             jButton7.setEnabled(false);
-            Socket registrySocket = new Socket("localhost", 6790);
-            ObjectOutputStream sol = new ObjectOutputStream(registrySocket.getOutputStream());
-            Jugador j = new Jugador(jTextField1.getText());
-            sol.writeObject(j);
-            sol.close();
+            DatagramSocket registrySocket = new DatagramSocket();
+            name = jTextField1.getText();
+            byte[] m = name.getBytes();
+            DatagramPacket request = new DatagramPacket(m, m.length, InetAddress.getByName("localhost"), 6790);
+            registrySocket.send(request);
             registrySocket.close();
             ServerSocket listenRSocket = new ServerSocket(6791);
             ObjectInputStream in = new ObjectInputStream(listenRSocket.accept().getInputStream());
             RgistroRespuesta response = (RgistroRespuesta) in.readObject();
-            name = jTextField1.getText();
             jugadores = response.getJugadores();
             gamePort = response.getGameReportPort();
             hitPort = response.getHittPort();
@@ -645,13 +633,96 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
             listenRSocket.close();
             updateScores();
             jLayeredPane1.setVisible(true);
-            Socket hitSocket = new Socket("localhost", hitPort);
+            if(hitSocket != null)
+                hitSocket.close();
+            hitSocket = new Socket("localhost", hitPort);
             out = new DataOutputStream(hitSocket.getOutputStream());
             new MulticastListener().start();
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.FINE, null, ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+    
+    public void manualRegisry(int i, int k){
+        try {
+            DatagramSocket registrySocket = new DatagramSocket();
+            name = "StressClient" + i + "" + k;
+            byte[] m = name.getBytes();
+            DatagramPacket request = new DatagramPacket(m, m.length, InetAddress.getByName("localhost"), 6790);
+            registrySocket.send(request);
+            registrySocket.close();
+            ServerSocket listenRSocket = new ServerSocket(6791);
+            ObjectInputStream in = new ObjectInputStream(listenRSocket.accept().getInputStream());
+            RgistroRespuesta response = (RgistroRespuesta) in.readObject();
+            jugadores = response.getJugadores();
+            gamePort = response.getGameReportPort();
+            hitPort = response.getHittPort();
+            IP = response.getIP();
+            listenRSocket.close();
+            updateScores();
+            Socket hitSocket = new Socket("localhost", hitPort);
+            out = new DataOutputStream(hitSocket.getOutputStream());
+            new MulticastListener().start();
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.FINE, null, ex);
+        }
+    }
+    
+    public void manualRegisry(int i){
+        try {
+            DatagramSocket registrySocket = new DatagramSocket();
+            name = "StressClient" + i;
+            byte[] m = name.getBytes();
+            DatagramPacket request = new DatagramPacket(m, m.length, InetAddress.getByName("localhost"), 6790);
+            registrySocket.send(request);
+            registrySocket.close();
+            ServerSocket listenRSocket = new ServerSocket(6791);
+            ObjectInputStream in = new ObjectInputStream(listenRSocket.accept().getInputStream());
+            RgistroRespuesta response = (RgistroRespuesta) in.readObject();
+            jugadores = response.getJugadores();
+            gamePort = response.getGameReportPort();
+            hitPort = response.getHittPort();
+            IP = response.getIP();
+            listenRSocket.close();
+            updateScores();
+            Socket hitSocket = new Socket("localhost", hitPort);
+            out = new DataOutputStream(hitSocket.getOutputStream());
+            new MulticastListener().start();
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.FINE, null, ex);
+        }
+    }
+    
+    public void getOut(){
+        try {
+            if(hitSocket != null)
+                hitSocket.close();
+            hitSocket = new Socket("localhost", 6792);
+            out = new DataOutputStream(hitSocket.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void manualHit(int iname){
+        try {
+            if(hitSocket == null){
+                hitSocket = new Socket("localhost", 6792);
+                out = new DataOutputStream(hitSocket.getOutputStream());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(!mole.equals(falses)){
+            try {
+                out.writeUTF("Estresador" + iname);
+            } catch (IOException ex) {
+                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println("No hay topo");
+        }
+    }
     
     /**
      * @param args the command line arguments
@@ -688,19 +759,32 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         });
     }
     
+    
     public class Erease extends Thread{
         int ind;
         
         public Erease(int i){
-            ind = i-1;
+            ind = i;
         }
+        
         
         @Override
         public void run(){
             try {
                 Thread.sleep(1500);
-            bts[ind].setIcon(null);
-            mole[ind] = false;
+                if(ind == 1)
+                    jButton1.setIcon(spot1);
+                if(ind == 2)
+                    jButton2.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                if(ind == 3)
+                    jButton3.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                if(ind == 4)
+                    jButton4.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                if(ind == 5)
+                    jButton5.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                if(ind == 6)
+                    jButton6.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                mole[ind -1] = false;
             } catch (InterruptedException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -708,9 +792,20 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
     }
     
     private void molePop(int where){
-        System.out.println(where-1);
         mole[where-1] = true;
-        bts[where-1].setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidT.png")));
+        if(where == 1)
+            jButton1.setIcon(spoted1);
+        if(where == 2)
+            jButton2.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidTR.png")));
+        if(where == 3)
+            jButton3.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidT.png")));
+        if(where == 4)
+            jButton4.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidTR.png")));
+        if(where == 5)
+            jButton5.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidT.png")));
+        if(where == 6)
+            jButton6.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidTR.png")));
+        
         new Erease(where).start();
     }
     
@@ -736,10 +831,8 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                         ind = Integer.parseInt(res[0].charAt(0)+"");
                     }
                     if(ind == 0){
-                        System.out.println(response.split(",")[1]);
                         String nname = response.split(",")[1];
                         int ind2 = Integer.parseInt(response.split(",")[2].charAt(0)+"");
-                        System.out.println(ind2);
                         boolean esta = false;
                         for(Jugador ji : jugadores){
                             if(ji.getName().equals(nname)){
@@ -751,10 +844,12 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                             jugadores.add(j);
                         }
                         jugadores.get(ind2).hit();
+                        mole = falses.clone();
+                        setSpots();
                         updateScores();
                     }
                     if(ind < 0){
-                        statusLabel.setText("Ganó " + jugadores.get((ind * -1) - 1) + "!");
+                        statusLabel.setText("Ganó " + jugadores.get((ind * -1) - 1).getName() + "!");
                     }
                     if(ind > 0){
                         molePop(ind);
@@ -812,6 +907,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
