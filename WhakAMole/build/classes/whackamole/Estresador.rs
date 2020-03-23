@@ -1,0 +1,5 @@
+whackamole.EstresaEntradas
+whackamole.EstresaRegistros
+whackamole.Estresador
+whackamole.EstresaJuego
+whackamole.Algebraic

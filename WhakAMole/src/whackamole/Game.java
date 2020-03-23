@@ -83,28 +83,28 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
     
     public void icons(){
             spot1 = new ImageIcon(getClass().getResource("/resources/1spot.png"));
-//            spot2;
-//            spot3;
-//            spot4;
-//            spot5;
-//            spot6;
+            spot2 = new ImageIcon(getClass().getResource("/resources/2spot.png"));
+            spot3 = new ImageIcon(getClass().getResource("/resources/3spot.png"));
+            spot4 = new ImageIcon(getClass().getResource("/resources/6spot.png"));
+            spot5 = new ImageIcon(getClass().getResource("/resources/4spot.png"));
+            spot6 = new ImageIcon(getClass().getResource("/resources/5spot.png"));
             spoted1 = new ImageIcon(getClass().getResource("/resources/1spoted.png"));
-//            spoted2;
-//            spoted3;
-//            spoted4;
-//            spoted5;
-//            spoted6;
+            spoted2 = new ImageIcon(getClass().getResource("/resources/2spoted.png"));
+            spoted3 = new ImageIcon(getClass().getResource("/resources/3spoted.png"));
+            spoted4 = new ImageIcon(getClass().getResource("/resources/6spoted.png"));
+            spoted5 = new ImageIcon(getClass().getResource("/resources/4spoted.png"));
+            spoted6 = new ImageIcon(getClass().getResource("/resources/5spoted.png"));
             
     }
     
     public void setSpots(){
         ImageIcon i = new ImageIcon(getClass().getResource("/resources/noDroid.png"));
         jButton1.setIcon(spot1);
-        jButton2.setIcon(i);
-        jButton3.setIcon(i);
-        jButton4.setIcon(i);
-        jButton5.setIcon(i);
-        jButton6.setIcon(i);
+        jButton2.setIcon(spot2);
+        jButton3.setIcon(spot3);
+        jButton4.setIcon(spot4);
+        jButton5.setIcon(spot5);
+        jButton6.setIcon(spot6);
     }
     
     private void initListeners(){
@@ -312,9 +312,9 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton1ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 89, 180));
+        jLayeredPane1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 108, 89, 180));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidTR.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/2spot.png"))); // NOI18N
         jButton2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jButton2MouseDragged(evt);
@@ -328,9 +328,9 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton2ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 89, -1));
+        jLayeredPane1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 213, 89, 180));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidT.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/3spot.png"))); // NOI18N
         jButton3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jButton3MouseDragged(evt);
@@ -344,9 +344,9 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton3ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 130, 89, -1));
+        jLayeredPane1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 154, 89, 180));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidTR.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/6spot.png"))); // NOI18N
         jButton4.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jButton4MouseDragged(evt);
@@ -360,9 +360,9 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton4ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 89, -1));
+        jLayeredPane1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 336, 89, 180));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidT.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/4spot.png"))); // NOI18N
         jButton5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jButton5MouseDragged(evt);
@@ -376,9 +376,9 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton5ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 89, -1));
+        jLayeredPane1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 313, 89, 180));
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battle-droidTR.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/5spot.png"))); // NOI18N
         jButton6.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jButton6MouseDragged(evt);
@@ -392,7 +392,7 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 jButton6ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 89, -1));
+        jLayeredPane1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 355, 89, 180));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/battlefield.png"))); // NOI18N
         jLayeredPane1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
@@ -775,15 +775,15 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
                 if(ind == 1)
                     jButton1.setIcon(spot1);
                 if(ind == 2)
-                    jButton2.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                    jButton2.setIcon(spot2);
                 if(ind == 3)
-                    jButton3.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                    jButton3.setIcon(spot3);
                 if(ind == 4)
-                    jButton4.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                    jButton4.setIcon(spot4);
                 if(ind == 5)
-                    jButton5.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                    jButton5.setIcon(spot5);
                 if(ind == 6)
-                    jButton6.setIcon(new ImageIcon(getClass().getResource("/resources/noDroid.png")));
+                    jButton6.setIcon(spot6);
                 mole[ind -1] = false;
             } catch (InterruptedException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -796,15 +796,15 @@ public class Game extends JFrame implements MouseMotionListener, MouseListener{
         if(where == 1)
             jButton1.setIcon(spoted1);
         if(where == 2)
-            jButton2.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidTR.png")));
+            jButton2.setIcon(spoted2);
         if(where == 3)
-            jButton3.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidT.png")));
+            jButton3.setIcon(spoted3);
         if(where == 4)
-            jButton4.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidTR.png")));
+            jButton4.setIcon(spoted4);
         if(where == 5)
-            jButton5.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidT.png")));
+            jButton5.setIcon(spoted5);
         if(where == 6)
-            jButton6.setIcon(new ImageIcon(getClass().getResource("/resources/battle-droidTR.png")));
+            jButton6.setIcon(spoted6);
         
         new Erease(where).start();
     }
